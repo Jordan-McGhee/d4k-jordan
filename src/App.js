@@ -4,13 +4,13 @@ import { Route, Routes } from "react-router-dom"
 import "./App.css"
 
 // IMPORTS
-import Admin from "./Pages/Admin"
-import FAQ from "./Pages/FAQ"
-import HomePage from "./Pages/HomePage"
-import Menu from "./Pages/Menu"
-import Order from "./Pages/Order"
-import Queue from "./Pages/Queue"
-import LeaderBoard from "./Pages/Leaderboard"
+import Admin from "./pages/Admin"
+import FAQ from "./pages/FAQ"
+import HomePage from "./pages/HomePage"
+import Menu from "./pages/Menu"
+import Order from "./pages/Order"
+import Queue from "./pages/Queue"
+import LeaderBoard from "./pages/Leaderboard"
 import MainNav from "./Navigation/MainNav";
 
 import backgroundImage from "./images/snowflake-bg.png"

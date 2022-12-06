@@ -2,14 +2,16 @@ const express = require('express')
 const app = express()
 
 const path = require('path')
-const PORT = process.env.PORT || 3000
-const db = require('./server/queries')
+const PORT = process.env.PORT || 5000
+const db = require('./queries')
 const bodyParser = require('body-parser');
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-Width, Content-Type, Accept")
+
   next();
 });
 
@@ -22,17 +24,21 @@ const pool = new Pool({
   }
 });
 
-express()
-  .use(bodyParser.urlencoded({extended: false}))
+const adminRoutes = require("./routes/admin-routes")
+
+
+app.use("/admin", adminRoutes)
+
+app.use(bodyParser.urlencoded({extended: false}))
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
+  //.set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/about'))
   .get('/menu', (req, res) => res.render('pages/menu'))
   .get('/order', (req, res) => res.render('pages/order'))
   .get('/charity', (req, res) => res.render('pages/charity'))
   .get('/faq', (req, res) => res.render('pages/faq'))
-  .get('/admin', (req, res) => db.getOrdersAdmin(req, res))
+ // .get('/admin', (req, res) => db.getOrdersAdmin(req, res))
   .get('/admintab', (req, res) => db.getGroupedOrders(req, res, 'admintab'))
   .get('/jumbotron', (req, res) => db.getGroupedOrders(req, res, 'jumbotron'))
   .get('/db', async (req, res) => {
