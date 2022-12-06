@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom"
 import "./App.css"
 
 // IMPORTS
-import Admin from "./pages/Admin"
+import Admin from "./pages/Admin";
 import FAQ from "./pages/FAQ"
 import HomePage from "./pages/HomePage"
 import Menu from "./pages/Menu"

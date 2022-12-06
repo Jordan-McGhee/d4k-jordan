@@ -17,12 +17,24 @@ app.use(function (req, res, next) {
 
 const { Pool } = require('pg');
 
-const pool = new Pool({
+const pool = process.env.DATABASE_URL ?  new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
+})
+:
+new Pool({
+  ssl: {
+    rejectUnauthorized: false
+  },
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  port: process.env.DATABASE_PORT,
+  host: process.env.DATABASE_HOST,
+  database: process.env.DATABASE
 });
+;
 
 const adminRoutes = require("./routes/admin-routes")
 

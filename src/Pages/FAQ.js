@@ -1,7 +1,7 @@
 import React from "react";
 import CardListItem from "../Components/UIElements/CardListItem";
 
-import Card from "./../Components/UIElements/Card"
+import Card from "../Components/UIElements/Card"
 
 const FAQ = () => {
 
