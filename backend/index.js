@@ -15,26 +15,35 @@ app.use(function (req, res, next) {
   next();
 });
 
-const { Pool } = require('pg');
+// const { Pool } = require('pg');
 
-const pool = process.env.DATABASE_URL ?  new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-})
-:
-new Pool({
-  ssl: {
-    rejectUnauthorized: false
-  },
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  port: process.env.DATABASE_PORT,
-  host: process.env.DATABASE_HOST,
-  database: process.env.DATABASE
-});
-;
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// })
+
+// const pool = process.env.DATABASE_URL ?  new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// })
+// :
+// new Pool({
+//   ssl: {
+//     rejectUnauthorized: false
+//   },
+//   user: process.env.DATABASE_USER,
+//   password: process.env.DATABASE_PASSWORD,
+//   port: process.env.DATABASE_PORT,
+//   host: process.env.DATABASE_HOST,
+//   database: process.env.DATABASE
+// });
+// ;
+
+
 
 const adminRoutes = require("./routes/admin-routes")
 
@@ -55,6 +64,7 @@ app.use(bodyParser.urlencoded({extended: false}))
   .get('/jumbotron', (req, res) => db.getGroupedOrders(req, res, 'jumbotron'))
   .get('/db', async (req, res) => {
     try {
+      console.log("Entered index try/catch")
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM drink_orders2 WHERE is_done != true ORDER BY date DESC');
       const results = { 'results': (result) ? result.rows : null};
